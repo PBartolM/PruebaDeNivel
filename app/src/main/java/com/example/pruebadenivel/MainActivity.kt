@@ -13,47 +13,30 @@ class MainActivity : AppCompatActivity() {
 
 
         button1.setOnClickListener {
-            var num1 = input1!!.text?.toString()
-            var num2 = input2!!.text?.toString()
-            var num3 = input3!!.text?.toString()
-            var nu1= num1?.let { it1 -> seguridad(it1) }
-            var nu2= num2?.let { it1 -> seguridad(it1) }
-            var nu3= num3?.let { it1 -> seguridad(it1) }
-//
-//            if (num2==null || num2.equals("")){
-//                 nu2=0.0
-//            }else{
-//                 nu2= num2.toDoubleOrNull()!!
-//                if(nu2==null)nu2=0.0
-//            }
-//            if (num3==null || num3.equals("")){
-//                 nu3=0.0
-//            }else{
-//                 nu3=num3.toDoubleOrNull()!!
-//                if(nu3==null) nu3=0.0
-//            }
-
-            if (nu1 != null) {
-                if (nu2 != null) {
-                    if (nu3 != null) {
-                        lanzarNewPlayer(nu1,nu2,nu3)
+            val num1 = input1!!.text?.toString()?.let { it1 -> seguridad(it1) }
+            val num2 = input2!!.text?.toString()?.let { it1 -> seguridad(it1) }
+            val num3 = input3!!.text?.toString()?.let { it1 -> seguridad(it1) }
+            //Los check nulls de abajo no hacen falta porque es imposible que llegen null, pero android Studio se queja
+            if (num1 != null) {
+                if (num2 != null) {
+                    if (num3 != null) {
+                        lanzarNewPlayer(num1,num2,num3)
                     }
                 }
             }
+
+
+
         }
 
     }
+    //esto comprueba que no entren valores nulos ni Strings que no sean numeros decimales
     fun seguridad(string:String):Double{
         var resultao=0.0
-        if (string==null || string.equals("")){
-            resultao=0.0
-        }else{
-            try {
-                resultao = parseDouble(string)
-            } catch (e: NumberFormatException) {
-                resultao = 0.0
-            }
-
+        try {
+            resultao = parseDouble(string)
+        } catch (e: NumberFormatException) {
+            resultao = 0.0
         }
         return resultao
     }
